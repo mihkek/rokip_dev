@@ -38,7 +38,7 @@ class EquipmentAdminController extends Controller
             'Дополнительная информация',
             'Дата',
         ];
-        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name', 'photos')
+        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
             //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
             ->get();
         $companies = User::role('company')
@@ -150,5 +150,11 @@ class EquipmentAdminController extends Controller
 
         Excel::import(new EquipmentsImport($file), $request->file('csv'));
         return back()->with('Данные файла добавлены');
+    }
+    public function photos($equipment_id)
+    {
+
+        $equipment = Equipment::where('id', $equipment_id)->first();
+        return view('admin.equipments.photos', ['factory_number' => $equipment->factory_number, 'photos' => $equipment->photos]);
     }
 }

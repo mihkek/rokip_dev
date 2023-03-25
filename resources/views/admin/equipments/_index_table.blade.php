@@ -9,6 +9,11 @@
             title="Редактировать">
             <i class="far fa-edit"></i>
         </a>
+        <a target="_blank" href="{{ route('admin.equipments.photo', $item->id) }}" class="text-success"
+            data-tooltip="tooltip" title="Фото оборудования">
+            {{-- <i class="fa-regular fa-images"></i> --}}
+            <i class="far fa-image"></i>
+        </a>
     </td>
     <td class="align-middle">
         {{ $item->shipment_number }}

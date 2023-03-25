@@ -25,6 +25,7 @@ Route::group([
 
 
     Route::post('equipments/import', [EquipmentAdminController::class, 'import'])->name('equipments.import');
+    Route::get('equipments/photos/{equipment_id}', [EquipmentAdminController::class, 'photos'])->name('equipments.photo');;
     Route::resource('new_equipments', EquipmentAdminController::class);
     // Компании
     Route::resource('companies', CompanyAdminController::class)

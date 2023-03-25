@@ -8,10 +8,6 @@
                 <div class="col-12">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
-                            <button id="#closeModal" onclick="showModal('text')" type="button" class="btn btn-primary"
-                                data-toggle="modal" data-target="#exampleModal">
-                                Закрыть
-                            </button>
                             <span class="font-weight-bold">Мастера</span>
 
                             <div class="card-tools">
