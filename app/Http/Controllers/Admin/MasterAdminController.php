@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class MasterAdminController extends Controller
@@ -28,8 +29,8 @@ class MasterAdminController extends Controller
             'Заявки',
             'Дата'
         ];
-        $masters = User::role('master')->get();
-        return view('admin.masters.index',compact('columns','masters'));
+        $masters = User::role('master')->with('status')->get();
+        return view('admin.masters.index', compact('columns', 'masters'));
     }
 
     /**
@@ -39,14 +40,13 @@ class MasterAdminController extends Controller
      */
     public function create()
     {
-        $users = User::role('user')->get();
         $roles = Role::select('id', 'name')
             ->get();
         $companies = User::role('company')
-            ->select('id','name')
+            ->select('id', 'name')
             ->orderBy('name')
             ->get();
-        return view('admin.masters.credit',compact('users','roles', 'companies'));
+        return view('admin.masters.credit', compact('roles', 'companies'));
     }
 
     /**
@@ -57,11 +57,13 @@ class MasterAdminController extends Controller
      */
     public function store(Request $request)
     {
-        $item = User::findOrFail($request->user_id);
-        $item->company_id = $request->company_id;
+        $item = new User();
+        $item->fill($request->all());
+        $item->status_id = 1;
+        $item->password = Hash::make($request->password);
         $item->save();
-        $item->syncRoles(Role::where('name','master')->pluck('id'));
-        return redirect()->route('admin.masters.edit',$item)->with('success','Информация успешно сохранена');
+        $item->syncRoles(Role::where('name', 'master')->pluck('id'));
+        return redirect()->route('admin.masters.index'); //, $item)->with('success', 'Информация успешно сохранена');
     }
 
     /**
