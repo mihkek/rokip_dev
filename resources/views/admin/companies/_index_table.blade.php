@@ -5,7 +5,8 @@
     <td class="text-center align-middle" style="width: 150px">
         {!! $item->code_status() !!}
 
-        <a href="{{ route('admin.companies.edit',$item) }}" class="text-primary" data-tooltip="tooltip" title="Редактировать">
+        <a href="{{ route('admin.companies.edit', $item) }}" class="text-primary" data-tooltip="tooltip"
+            title="Редактировать">
             <i class="far fa-edit"></i>
         </a>
     </td>
@@ -19,16 +20,19 @@
         {{ $item->phone }}
     </td>
     <td class="text-center align-middle">
-        {{ $item->equipments_count }}
+        {{ $item->shipped }}
     </td>
     <td class="text-center align-middle">
-        {{ $item->equipments_count }}
+        {{ $item->installed }}
     </td>
     <td class="text-center align-middle">
-        {{ $item->equipments_count }}
+        {{ $item->breakdowns }}
     </td>
     <td class="text-center align-middle">
-        <a href="{{ route('admin.file_equipments.index',['company'=>$item->id]) }}">
+        {{ $item->remains }}
+    </td>
+    <td class="text-center align-middle">
+        <a href="{{ route('admin.file_equipments.index', ['company' => $item->id]) }}">
             {{ $item->files_count }}
         </a>
     </td>
