@@ -53,6 +53,7 @@ class UserAdminController extends Controller
     public function create()
     {
         $roles = Role::select('id', 'name')
+            ->where('name', '!=', 'master')
             ->get();
         $statuses = Status::where('model', 'user')->select('id', 'title')->get();
         $is_master = Str::contains(url()->previous(), 'masters');
