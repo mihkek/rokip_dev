@@ -68,7 +68,7 @@
                                     <option value="" selected disabled>Сделайте выбор</option>
                                     @foreach ($companies as $company)
                                         <option value="{{ $company->id }}"
-                                            @if (isset($item) && $item->company_id == $company->id) selected @endif>{{ $company->name }}</option>
+                                            @if ((isset($item) && $item->company_id == $company->id) || (isset($company_id) && $company_id == $company->id)) selected @endif>{{ $company->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

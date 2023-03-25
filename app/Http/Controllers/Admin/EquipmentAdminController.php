@@ -22,7 +22,7 @@ class EquipmentAdminController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $columns = [
             'ID',
@@ -38,9 +38,20 @@ class EquipmentAdminController extends Controller
             'Дополнительная информация',
             'Дата',
         ];
-        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-            //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
-            ->get();
+        if ($request->query('company_id') != null && $request->query('status') != null) {
+            $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+                ->where('company_id', intval($request->query('company_id')))
+                ->where('status_id', intval($request->query('status')))
+                ->get();
+        } elseif ($request->query('company_id') != null) {
+            $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+                ->where('company_id', intval($request->query('company_id')))
+                ->get();
+        } else {
+            $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+                //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
+                ->get();
+        }
         $companies = User::role('company')
             ->select('id', 'name')
             ->orderBy('name')

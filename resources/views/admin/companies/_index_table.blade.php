@@ -20,13 +20,19 @@
         {{ $item->phone }}
     </td>
     <td class="text-center align-middle">
-        {{ $item->shipped }}
+        <a href="{{ route('admin.equipments.index', ['company_id' => $item->id]) }}">
+            {{ $item->shipped }}
+        </a>
     </td>
     <td class="text-center align-middle">
-        {{ $item->installed }}
+        <a href="{{ route('admin.equipments.index', ['company_id' => $item->id, 'status' => 8]) }}">
+            {{ $item->installed }}
+        </a>
     </td>
     <td class="text-center align-middle">
-        {{ $item->breakdowns }}
+        <a href="{{ route('admin.equipments.index', ['company_id' => $item->id, 'status' => 9]) }}">
+            {{ $item->installed }}
+        </a>
     </td>
     <td class="text-center align-middle">
         {{ $item->remains }}
@@ -37,7 +43,10 @@
         </a>
     </td>
     <td class="text-center align-middle">
-        {{ $item->equipments_count }}
+        <a class="btn btn-sm btn-block btn-primary mb-2"
+            href="{{ route('admin.masters.index', ['company_id' => $item->id]) }}">Список</a>
+        <a class="btn btn-sm btn-block btn-success mb-2"
+            href="{{ route('admin.masters.create', ['company_id' => $item->id]) }}">Добавить</a>
     </td>
     <td class="text-center align-middle">
         {!! $item->datetime_format() !!}

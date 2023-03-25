@@ -16,7 +16,7 @@ class MasterAdminController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $columns = [
             'ID',
@@ -29,7 +29,11 @@ class MasterAdminController extends Controller
             'Заявки',
             'Дата'
         ];
-        $masters = User::role('master')->with('status')->get();
+        if ($request->query('company_id') != null) {
+            $masters = User::role('master')->with('status', 'company')->where('company_id', intval($request->company_id))->get();
+        } else {
+            $masters = User::role('master')->with('status', 'company')->get();
+        }
         return view('admin.masters.index', compact('columns', 'masters'));
     }
 
@@ -38,7 +42,7 @@ class MasterAdminController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $roles = Role::select('id', 'name')
             ->get();
@@ -46,7 +50,12 @@ class MasterAdminController extends Controller
             ->select('id', 'name')
             ->orderBy('name')
             ->get();
-        return view('admin.masters.credit', compact('roles', 'companies'));
+        $company_id = null;
+        if ($request->query('company_id') != null) {
+            $company_id = intval($request->query('company_id'));
+        }
+
+        return view('admin.masters.credit', compact('roles', 'companies', 'company_id'));
     }
 
     /**
@@ -61,6 +70,7 @@ class MasterAdminController extends Controller
         $item->fill($request->all());
         $item->status_id = 1;
         $item->password = Hash::make($request->password);
+        $item->company_id = $request->company_id;
         $item->save();
         $item->syncRoles(Role::where('name', 'master')->pluck('id'));
         return redirect()->route('admin.masters.index'); //, $item)->with('success', 'Информация успешно сохранена');

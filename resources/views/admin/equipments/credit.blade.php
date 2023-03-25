@@ -56,14 +56,15 @@
                             <div class="col-md mb-3">
                                 <label for="master_id" class="form-label">
                                     Мастер
-                                    @include('admin._include.form._field_is_required')
+
                                 </label>
                                 <select class="select2bs4 select2-hidden-accessible custom-select-sm" name="master_id"
-                                    id="master_id" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                    id="master_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                     <option value="" selected disabled>Сделайте выбор</option>
-                                    {{--                                    @foreach ($masters as $master) --}}
-                                    {{--                                        <option value="{{ $master->id }}" @if (isset($item) && $item->master_id == $master->id) selected @endif>{{ $master->fio() }}</option> --}}
-                                    {{--                                    @endforeach --}}
+                                    @foreach ($masters as $master)
+                                        <option value="{{ $master->id }}"
+                                            @if (isset($item) && $item->master_id == $master->id) selected @endif>{{ $master->fio() }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md mb-3">

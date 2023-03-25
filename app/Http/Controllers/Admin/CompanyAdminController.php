@@ -23,7 +23,7 @@ class CompanyAdminController extends Controller
      *
      * @return Response
      */
-    public function index(CompaniesService $service)
+    public function index(Request $request)
     {
         $columns = [
             'ID',
