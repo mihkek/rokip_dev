@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Mail\SendPassword;
 use App\Models\Status;
 use App\Models\User;
+use App\Services\UsersService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -26,20 +27,22 @@ class UserAdminController extends Controller
     public function index()
     {
         $columns = [
-                'ID',
-                'Статус | <i class="fas fa-cog"></i>',
-                'Роль',
-                'ФИО',
-                'Емейл',
-                'Телефон',
-                'Дата'
-            ];
-        $users = User::with('status:id,color,title')
-            ->select('id','status_id', 'email', 'phone', 'name', 'created_at')
-            ->paginate();
+            'ID',
+            'Статус | <i class="fas fa-cog"></i>',
+            'Роль',
+            'ФИО',
+            'Емейл',
+            'Телефон',
+            'Дата'
+        ];
         $roles = Role::select('id', 'name')
+            ->where('name', '!=', 'master')
             ->get();
-        return view('admin.users.index', compact('columns','users', 'roles'));
+        $users = User::with('status:id,color,title')
+            ->select('id', 'status_id', 'email', 'phone', 'name', 'created_at')
+            ->role($roles)
+            ->paginate();
+        return view('admin.users.index', compact('columns', 'users', 'roles'));
     }
 
     /**
@@ -51,9 +54,9 @@ class UserAdminController extends Controller
     {
         $roles = Role::select('id', 'name')
             ->get();
-        $statuses = Status::where('model','user')->select('id','title')->get();
+        $statuses = Status::where('model', 'user')->select('id', 'title')->get();
         $is_master = Str::contains(url()->previous(), 'masters');
-        return view('admin.users.credit', compact( 'roles','statuses', 'is_master'));
+        return view('admin.users.credit', compact('roles', 'statuses', 'is_master'));
     }
 
     /**
@@ -75,7 +78,7 @@ class UserAdminController extends Controller
         Mail::to($item->email)->send(new SendPassword($item));
 
 
-        return redirect()->route('admin.users.edit',$item)->with('success','Информация успешно сохранена');
+        return redirect()->route('admin.users.edit', $item)->with('success', 'Информация успешно сохранена');
     }
 
     /**
@@ -100,8 +103,8 @@ class UserAdminController extends Controller
         $item = $user;
         $roles = Role::select('id', 'name')
             ->get();
-        $statuses = Status::where('model','user')->select('id','title')->get();
-        return view('admin.users.credit',compact('item','roles','statuses'));
+        $statuses = Status::where('model', 'user')->select('id', 'title')->get();
+        return view('admin.users.credit', compact('item', 'roles', 'statuses'));
     }
 
     /**
@@ -120,7 +123,7 @@ class UserAdminController extends Controller
         $user->save();
         $user->syncRoles(Role::find($request->role_id));
 
-        return back()->with('success','Информация успешно сохранена');
+        return back()->with('success', 'Информация успешно сохранена');
     }
 
     /**
