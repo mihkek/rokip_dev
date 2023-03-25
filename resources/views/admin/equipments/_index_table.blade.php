@@ -41,7 +41,7 @@
         {{ Str::limit($item->consumer_info, 60, '...') }}
 
         @if (Str::length($item->consumer_info) > 60)
-            <div class="text-primary" style="cursor: pointer;" onclick="showFullText( '{{ $item->consumer_info }}')">
+            <div class="text-primary" style="cursor: pointer;" onclick="showModal( '{{ $item->consumer_info }}')">
                 Подробнее...
             </div>
         @endif
@@ -53,7 +53,7 @@
         {{ Str::limit($item->additional_data, 60, '...') }}
 
         @if (Str::length($item->consumer_info) > 60)
-            <div class="text-primary" style="cursor: pointer;" onclick="showFullText( '{{ $item->additional_data }}')">
+            <div class="text-primary" onclick="showModal( '{{ $item->additional_data }}')" style="cursor: pointer;">
                 Подробнее...
             </div>
         @endif
@@ -63,9 +63,3 @@
         {!! $item->datetime_format() !!}
     </td>
 </tr>
-
-<script type="text/javascript">
-    function showFullText(text) {
-        alert(text)
-    }
-</script>

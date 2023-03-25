@@ -9,7 +9,7 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <!-- Material Design Bootstrap -->
-{{--<link rel="stylesheet" href="/admin/mdb/css/mdb.min.css">--}}
+{{-- <link rel="stylesheet" href="/admin/mdb/css/mdb.min.css"> --}}
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
@@ -21,7 +21,8 @@
 <!-- Bootstrap Color Picker -->
 <link rel="stylesheet" href="{{ asset('admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
 <!-- Tempusdominus Bbootstrap 4 -->
-<link rel="stylesheet" href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+<link rel="stylesheet"
+    href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 <!-- Bootstrap4 Duallistbox -->
 <link rel="stylesheet" href="{{ asset('admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
@@ -32,11 +33,17 @@
 <!-- Добавление кнопок экспорта таблиц -->
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
 
-{{--<!-- Include Editor style. -->--}}
-{{--<link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />--}}
+{{-- <!-- Include Editor style. --> --}}
+{{-- <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /> --}}
 
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('admin/css/adminlte.css') }}">
 
-{{--<link rel="stylesheet" href="/admin/css/upload-image.css">--}}
+{{-- <link rel="stylesheet" href="/admin/css/upload-image.css"> --}}
 <link rel="stylesheet" href="{{ asset('admin/css/style.css?' . now()->format('h:i')) }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha256-OFRAJNoaD8L3Br5lglV7VyLRf0itmoBzWUoM+Sji4/8=" crossorigin="anonymous"></script>
