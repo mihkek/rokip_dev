@@ -8,6 +8,7 @@ use App\Mail\SendPassword;
 use App\Models\Company;
 use App\Models\Status;
 use App\Models\User;
+use App\Services\CompaniesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class CompanyAdminController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(CompaniesService $service)
     {
         $columns = [
             'ID',
@@ -37,11 +38,13 @@ class CompanyAdminController extends Controller
             'Мастера',
             'Дата'
         ];
+        // $service->calcAndFealCompanyFields(4);
         $companies = User::role('company')
-            ->with('status')
             ->withCount('files')
+            ->with('status', 'company')
             ->get();
-        return view('admin.companies.index',compact('columns','companies'));
+        // dd($companies);
+        return view('admin.companies.index', compact('columns', 'companies'));
     }
 
     /**
@@ -51,8 +54,8 @@ class CompanyAdminController extends Controller
      */
     public function create()
     {
-        $statuses = Status::where('model','company')->select('id','title')->get();
-        return view('admin.companies.credit',compact('statuses'));
+        $statuses = Status::where('model', 'company')->select('id', 'title')->get();
+        return view('admin.companies.credit', compact('statuses'));
     }
 
     /**
@@ -72,7 +75,7 @@ class CompanyAdminController extends Controller
 
         $item->visible_password = $password;
         Mail::to($item->email)->send(new SendPassword($item));
-        return redirect()->route('admin.companies.edit',$item)->with('success','Информация успешно сохранена');
+        return redirect()->route('admin.companies.edit', $item)->with('success', 'Информация успешно сохранена');
     }
 
     /**
@@ -95,8 +98,8 @@ class CompanyAdminController extends Controller
     public function edit(User $user)
     {
         $item = $user;
-        $statuses = Status::where('model','company')->select('id','title')->get();
-        return view('admin.companies.credit',compact('item','statuses'));
+        $statuses = Status::where('model', 'company')->select('id', 'title')->get();
+        return view('admin.companies.credit', compact('item', 'statuses'));
     }
 
     /**
@@ -119,7 +122,7 @@ class CompanyAdminController extends Controller
             $user->visible_password = $password;
             Mail::to($user->email)->send(new SendPassword($user));
         }
-        return back()->with('success','Информация успешно сохранена');
+        return back()->with('success', 'Информация успешно сохранена');
     }
 
     /**

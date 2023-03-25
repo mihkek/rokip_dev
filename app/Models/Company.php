@@ -21,7 +21,7 @@ class Company extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'status_id','title',
+        'status_id', 'title',
     ];
 
     // Логирование изменений
@@ -39,7 +39,7 @@ class Company extends Model
         return LogOptions::defaults()
             ->logAll()
             ->logOnlyDirty()
-            ->logExcept(['updated_at','created_at']);
+            ->logExcept(['updated_at', 'created_at']);
     }
     // end Логирование изменений
 
@@ -60,6 +60,6 @@ class Company extends Model
 
     public function equipments(): HasMany
     {
-        return $this->hasMany(Equipment::class);
+        return $this->hasMany(Equipment::class, 'company_id');
     }
 }

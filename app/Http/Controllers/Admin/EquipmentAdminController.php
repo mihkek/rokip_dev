@@ -38,7 +38,7 @@ class EquipmentAdminController extends Controller
             'Дополнительная информация',
             'Дата',
         ];
-        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,title')
             //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
             ->get();
         $companies = User::role('company')

@@ -62,7 +62,7 @@ class Equipment extends Model
 
     public function company(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'company_id')->withDefault();
+        return $this->belongsTo(Company::class)->withDefault();
     }
 
     public function type(): BelongsTo
@@ -72,6 +72,6 @@ class Equipment extends Model
 
     public function photos(): HasMany
     {
-        return $this->hasMany(EquipmentPhoto::class, 'equipment_id');
+        return $this->hasMany(EquipmentPhoto::class, 'equipment_id')->withDefault();
     }
 }

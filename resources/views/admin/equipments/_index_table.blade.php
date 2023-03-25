@@ -32,7 +32,7 @@
     </td>
 
     <td class="align-middle">
-        {{ $item->company->name }}
+        {{ $item->company->title }}
     </td>
 
 
