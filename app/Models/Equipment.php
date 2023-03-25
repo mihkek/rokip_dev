@@ -6,6 +6,7 @@ use App\Traits\AddEdit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -21,8 +22,8 @@ class Equipment extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id','master_id','status_id','company_id','type_id',
-        'title','shipment_number','factory_number','modification','current','voltage','description',
+        'user_id', 'master_id', 'status_id', 'company_id', 'type_id',
+        'title', 'shipment_number', 'factory_number', 'modification', 'current', 'voltage', 'description',
     ];
 
     // Логирование изменений
@@ -40,7 +41,7 @@ class Equipment extends Model
         return LogOptions::defaults()
             ->logAll()
             ->logOnlyDirty()
-            ->logExcept(['updated_at','created_at']);
+            ->logExcept(['updated_at', 'created_at']);
     }
     // end Логирование изменений
 
@@ -51,7 +52,7 @@ class Equipment extends Model
 
     public function master(): BelongsTo
     {
-        return $this->belongsTo(User::class,'master_id','id')->withDefault();
+        return $this->belongsTo(User::class, 'master_id', 'id')->withDefault();
     }
 
     public function status(): BelongsTo
@@ -67,5 +68,10 @@ class Equipment extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class)->withDefault();
+    }
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(EquipmentPhoto::class, 'equipment_id');
     }
 }

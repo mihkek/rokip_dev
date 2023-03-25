@@ -33,16 +33,19 @@ class EquipmentAdminController extends Controller
             'Сила тока',
             'Номинальное напряжение',
             'Компания',
-            'Дата'
+            'Адрес установки',
+            'Информация о потребителе',
+            'Дополнительная информация',
+            'Дата',
         ];
-        $equipments = Equipment::with('status:id,color,title','type:id,title','company:id,name')
-//            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
+        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name', 'photos')
+            //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
             ->get();
         $companies = User::role('company')
-            ->select('id','name')
+            ->select('id', 'name')
             ->orderBy('name')
             ->get();
-        return view('admin.equipments.index', compact('columns','equipments', 'companies'));
+        return view('admin.equipments.index', compact('columns', 'equipments', 'companies'));
     }
 
     /**
@@ -52,16 +55,16 @@ class EquipmentAdminController extends Controller
      */
     public function create()
     {
-        $statuses = Status::where('model','equipment')
-            ->select('id','color', 'title')
+        $statuses = Status::where('model', 'equipment')
+            ->select('id', 'color', 'title')
             ->get();
-        $types = Type::where('model','device')->get();
+        $types = Type::where('model', 'device')->get();
         $masters = User::all();
         $companies = User::role('company')
-            ->select('id','name')
+            ->select('id', 'name')
             ->orderBy('name')
             ->get();
-        return view('admin.equipments.credit', compact( 'statuses','types','masters','companies'));
+        return view('admin.equipments.credit', compact('statuses', 'types', 'masters', 'companies'));
     }
 
     /**
@@ -76,7 +79,7 @@ class EquipmentAdminController extends Controller
         $item->user_id = Auth::id();
         $item->status_id = 1;
         $item->save();
-        return redirect()->route('admin.equipments.edit',$item)->with('success','Информация успешно сохранена');
+        return redirect()->route('admin.equipments.edit', $item)->with('success', 'Информация успешно сохранена');
     }
 
     /**
@@ -99,16 +102,16 @@ class EquipmentAdminController extends Controller
     public function edit(Equipment $equipment)
     {
         $item = $equipment;
-        $statuses = Status::where('model','equipment')
-            ->select('id','color', 'title')
+        $statuses = Status::where('model', 'equipment')
+            ->select('id', 'color', 'title')
             ->get();
-        $types = Type::where('model','device')->get();
+        $types = Type::where('model', 'device')->get();
         $masters = User::all();
         $companies = User::role('company')
-            ->select('id','name')
+            ->select('id', 'name')
             ->orderBy('name')
             ->get();
-        return view('admin.equipments.credit', compact( 'item','statuses','types','masters','companies'));
+        return view('admin.equipments.credit', compact('item', 'statuses', 'types', 'masters', 'companies'));
     }
 
     /**
@@ -123,7 +126,7 @@ class EquipmentAdminController extends Controller
         $item = $equipment;
         $item->edit($request->all());
         $item->save();
-        return back()->with('success','Информация успешно сохранена');
+        return back()->with('success', 'Информация успешно сохранена');
     }
 
     /**
@@ -143,7 +146,7 @@ class EquipmentAdminController extends Controller
         $file->user_id = Auth::id();
         $file->company_id = $request->company_id;
         $file->title   = $request->file('csv')->getClientOriginalName();
-//        $file->save();
+        //        $file->save();
 
         Excel::import(new EquipmentsImport($file), $request->file('csv'));
         return back()->with('Данные файла добавлены');

@@ -43,7 +43,7 @@ Route::group([
 
     // Временно не используемые роуты
 
-    // Route::resource('file_equipments', FileEquipmentAdminController::class);
+    Route::resource('file_equipments', FileEquipmentAdminController::class);
     // Устройства
     // Route::resource('devices', DeviceAdminController::class);
     // Бригады
