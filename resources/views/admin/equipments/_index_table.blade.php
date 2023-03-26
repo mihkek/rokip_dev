@@ -1,4 +1,4 @@
-<tr>
+<tr style="max-width: 400px; overflow-x:scroll">
     <td class="text-center align-middle" style="width: 50px">
         {{ $item->id }}
     </td>
@@ -43,9 +43,9 @@
     </td>
 
     <td class="align-middle">
-        {{ Str::limit($item->consumer_info, 60, '...') }}
+        {{ Str::limit($item->consumer_info, 30, '...') }}
 
-        @if (Str::length($item->consumer_info) > 60)
+        @if (Str::length($item->consumer_info) > 30)
             <div class="text-primary" style="cursor: pointer;" onclick="showModal( '{{ $item->consumer_info }}')">
                 Подробнее...
             </div>
@@ -55,9 +55,9 @@
 
     <td class="align-middle">
 
-        {{ Str::limit($item->additional_data, 60, '...') }}
+        {{ Str::limit($item->additional_data, 30, '...') }}
 
-        @if (Str::length($item->additional_data) > 60)
+        @if (Str::length($item->additional_data) > 30)
             <div class="text-primary" onclick="showModal( '{{ $item->additional_data }}')" style="cursor: pointer;">
                 Подробнее...
             </div>

@@ -32,6 +32,20 @@
         flex-direction: column;
         align-items: center;
     }
+
+    .big-table {
+        overflow: auto;
+        position: relative;
+    }
+
+    .big-table table {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
 </style>
 
 @section('content')
@@ -53,7 +67,7 @@
                                 {{--                                @include('_layouts._tools') --}}
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body big-table">
                             {{--                            @include('admin.users._filters') --}}
 
                             {{--                            @include('admin._include.table.columns_select') --}}
