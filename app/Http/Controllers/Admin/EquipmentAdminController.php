@@ -98,6 +98,11 @@ class EquipmentAdminController extends Controller
     public function store(Request $request)
     {
         $item = Equipment::add($request->all());
+        // dd($request->all());
+        $item->description = $request->description;
+        $item->consumer_info = $request->consumer_info;
+        $item->additional_data = $request->additional_data;
+        $item->installation_adress = $request->installation_adress;
         $item->user_id = Auth::id();
         if (Auth::user()->hasRole('company')) {
             $item->company_id = Auth::id();
@@ -155,6 +160,10 @@ class EquipmentAdminController extends Controller
     {
         $item = $equipment;
         $item->edit($request->all());
+        $item->description = $request->description;
+        $item->consumer_info = $request->consumer_info;
+        $item->additional_data = $request->additional_data;
+        $item->installation_adress = $request->installation_adress;
         $item->save();
         return back()->with('success', 'Информация успешно сохранена');
     }

@@ -57,7 +57,7 @@
 
         {{ Str::limit($item->additional_data, 60, '...') }}
 
-        @if (Str::length($item->consumer_info) > 60)
+        @if (Str::length($item->additional_data) > 60)
             <div class="text-primary" onclick="showModal( '{{ $item->additional_data }}')" style="cursor: pointer;">
                 Подробнее...
             </div>

@@ -118,12 +118,35 @@
                                     'label' => 'Номинальное напряжение, В',
                                 ])
                             </div>
+                            <div class="col-md mb-3">
+                                @include('admin._include.form.input', [
+                                    'data' => 'installation_adress',
+                                    'type' => 'number',
+                                    'label' => 'Адрес установки',
+                                ])
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12 mb-3">
                                 @include('admin._include.form.textarea', [
                                     'data' => 'description',
                                     'label' => 'Описание',
+                                ])
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                @include('admin._include.form.textarea', [
+                                    'data' => 'consumer_info',
+                                    'label' => 'Информация о потребителе',
+                                ])
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                @include('admin._include.form.textarea', [
+                                    'data' => 'additional_data',
+                                    'label' => 'Дополнительная информация',
                                 ])
                             </div>
                         </div>
