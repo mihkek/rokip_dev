@@ -58,20 +58,24 @@
                                     'required' => true,
                                 ])
                             </div>
-                            <div class="col-md">
-                                <label for="company_id" class="form-label">
-                                    Компания
-                                    @include('admin._include.form._field_is_required')
-                                </label>
-                                <select class="select2bs4 select2-hidden-accessible custom-select-sm" name="company_id"
-                                    id="company_id" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-                                    <option value="" selected disabled>Сделайте выбор</option>
-                                    @foreach ($companies as $company)
-                                        <option value="{{ $company->id }}"
-                                            @if ((isset($item) && $item->company_id == $company->id) || (isset($company_id) && $company_id == $company->id)) selected @endif>{{ $company->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @if (!Auth::user()->hasRole('company'))
+                                <div class="col-md">
+                                    <label for="company_id" class="form-label">
+                                        Компания
+                                        @include('admin._include.form._field_is_required')
+                                    </label>
+                                    <select class="select2bs4 select2-hidden-accessible custom-select-sm" name="company_id"
+                                        id="company_id" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                        <option value="" selected disabled>Сделайте выбор</option>
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}"
+                                                @if ((isset($item) && $item->company_id == $company->id) || (isset($company_id) && $company_id == $company->id)) selected @endif>{{ $company->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
                             {{-- <div class="col-md mb-3">
                                 <label for="user_id" class="form-label">
                                     Пользователь

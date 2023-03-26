@@ -38,20 +38,27 @@ class EquipmentAdminController extends Controller
             'Дополнительная информация',
             'Дата',
         ];
-        if ($request->query('company_id') != null && $request->query('status') != null) {
+        if (Auth::user()->hasRole('company')) {
             $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                ->where('company_id', intval($request->query('company_id')))
-                ->where('status_id', intval($request->query('status')))
-                ->get();
-        } elseif ($request->query('company_id') != null) {
-            $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                ->where('company_id', intval($request->query('company_id')))
+                ->where('company_id', Auth::id())
                 ->get();
         } else {
-            $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
-                ->get();
+            if ($request->query('company_id') != null && $request->query('status') != null) {
+                $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+                    ->where('company_id', intval($request->query('company_id')))
+                    ->where('status_id', intval($request->query('status')))
+                    ->get();
+            } elseif ($request->query('company_id') != null) {
+                $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+                    ->where('company_id', intval($request->query('company_id')))
+                    ->get();
+            } else {
+                $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+                    //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
+                    ->get();
+            }
         }
+
         $companies = User::role('company')
             ->select('id', 'name')
             ->orderBy('name')
@@ -70,7 +77,11 @@ class EquipmentAdminController extends Controller
             ->select('id', 'color', 'title')
             ->get();
         $types = Type::where('model', 'device')->get();
-        $masters = User::all();
+        if (Auth::user()->hasRole('company')) {
+            $masters = User::where('company_id', Auth::id())->get();
+        } else {
+            $masters = User::all();
+        }
         $companies = User::role('company')
             ->select('id', 'name')
             ->orderBy('name')
@@ -88,6 +99,9 @@ class EquipmentAdminController extends Controller
     {
         $item = Equipment::add($request->all());
         $item->user_id = Auth::id();
+        if (Auth::user()->hasRole('company')) {
+            $item->company_id = Auth::id();
+        }
         $item->status_id = 1;
         $item->save();
         return redirect()->route('admin.equipments.edit', $item)->with('success', 'Информация успешно сохранена');
@@ -117,7 +131,12 @@ class EquipmentAdminController extends Controller
             ->select('id', 'color', 'title')
             ->get();
         $types = Type::where('model', 'device')->get();
-        $masters = User::all();
+        // $masters = User::all();
+        if (Auth::user()->hasRole('company')) {
+            $masters = User::where('company_id', Auth::id())->get();
+        } else {
+            $masters = User::all();
+        }
         $companies = User::role('company')
             ->select('id', 'name')
             ->orderBy('name')
@@ -155,7 +174,11 @@ class EquipmentAdminController extends Controller
     {
         $file          = new FileEquipment();
         $file->user_id = Auth::id();
-        $file->company_id = $request->company_id;
+        if (Auth::user()->hasRole('company')) {
+            $file->company_id = Auth::id();
+        } else {
+            $file->company_id = $request->company_id;
+        }
         $file->title   = $request->file('csv')->getClientOriginalName();
         //        $file->save();
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -29,10 +30,14 @@ class MasterAdminController extends Controller
             'Заявки',
             'Дата'
         ];
-        if ($request->query('company_id') != null) {
-            $masters = User::role('master')->with('status', 'company')->where('company_id', intval($request->company_id))->get();
+        if (Auth::user()->hasRole('company')) {
+            $masters = User::role('master')->with('status', 'company')->where('company_id', Auth::id())->get();
         } else {
-            $masters = User::role('master')->with('status', 'company')->get();
+            if ($request->query('company_id') != null) {
+                $masters = User::role('master')->with('status', 'company')->where('company_id', intval($request->company_id))->get();
+            } else {
+                $masters = User::role('master')->with('status', 'company')->get();
+            }
         }
         return view('admin.masters.index', compact('columns', 'masters'));
     }
@@ -70,7 +75,11 @@ class MasterAdminController extends Controller
         $item->fill($request->all());
         $item->status_id = 1;
         $item->password = Hash::make($request->password);
-        $item->company_id = $request->company_id;
+        if (Auth::user()->hasRole('company')) {
+            $item->company_id = Auth::id();
+        } else {
+            $item->company_id = $request->company_id;
+        }
         $item->save();
         $item->syncRoles(Role::where('name', 'master')->pluck('id'));
         return redirect()->route('admin.masters.index'); //, $item)->with('success', 'Информация успешно сохранена');
