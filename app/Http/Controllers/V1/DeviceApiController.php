@@ -51,6 +51,7 @@ class DeviceApiController extends Controller
         $request = json_decode($request->getContent(), true);
         $factory_number = $request['factory_number'];
         $equipment = Equipment::where('factory_number', $factory_number)->first();
+        if (!$equipment) throw new Error("Equipment with this factory number does not exists");
 
         $equipment->status_id = boolval($request['is_brak']) ? 9 : 8;
         $equipment->modification = $request['modification'];
