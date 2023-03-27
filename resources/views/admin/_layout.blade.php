@@ -33,6 +33,20 @@
             background: #e8e8e8 none repeat scroll 0 0;
             padding: 15px;
         }
+
+        .big-table {
+            overflow: auto;
+            position: relative;
+        }
+
+        .big-table table {
+            display: inline-block;
+            vertical-align: top;
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
 </head>
 
