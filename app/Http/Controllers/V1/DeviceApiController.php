@@ -47,54 +47,54 @@ class DeviceApiController extends Controller
      */
     public function store(Request $request, FilesService $service)
     {
-        // try {
-        $request = json_decode($request->getContent(), true);
-        $factory_number = $request['factory_number'];
-        $equipment = Equipment::where('factory_number', $factory_number)->first();
-        if (!$equipment) throw new Error("Equipment with this factory number does not exists");
+        try {
+            $request = json_decode($request->getContent(), true);
+            $factory_number = $request['factory_number'];
+            $equipment = Equipment::where('factory_number', $factory_number)->first();
+            if (!$equipment) throw new Error("Equipment with this factory number does not exists");
 
-        $equipment->status_id = boolval($request['is_brak']) ? 9 : 8;
-        $equipment->modification = $request['modification'];
-        $consumer_info = $request['name'] . ', телефон: ' . $request['phone'] . ', договор №' . $request['contract'];
-        if (count($request['seals'])) {
-            $consumer_info .= ", плобмы: ";
-            $iterator = 0;
-            foreach ($request['seals'] as $seal) {
-                $consumer_info .= $seal['seal'];
-                $iterator += 1;
-                if ($iterator < count($request['seals'])) {
-                    $consumer_info .= ',';
+            $equipment->status_id = boolval($request['is_brak']) ? 9 : 8;
+            $equipment->modification = $request['modification'];
+            $consumer_info = $request['name'] . ', телефон: ' . $request['phone'] . ', договор №' . $request['contract'];
+            if (count($request['seals'])) {
+                $consumer_info .= ", плобмы: ";
+                $iterator = 0;
+                foreach ($request['seals'] as $seal) {
+                    $consumer_info .= $seal['seal'];
+                    $iterator += 1;
+                    if ($iterator < count($request['seals'])) {
+                        $consumer_info .= ',';
+                    }
                 }
             }
+            $additional_data = "Номер сим-карты: " . $request['sim'] . ", номер опоры: " . $request['support'] . ", РЭС: " . $request['res'] . ", пример счетчика: " . $request['counter'] . ", другое: " . $request['message'];
+            $installation_adress = "Широта: " . $request['latitude'] . ", долгота: " . $request['longitude'];
+            $equipment->consumer_info = $consumer_info;
+            $equipment->additional_data = $additional_data;
+            $equipment->installation_adress = $installation_adress;
+
+            foreach ($request['photos'] as $photo) {
+                $pathOrFalse = $service->createPhotoFromBase64($photo['photo']);
+                if (!$pathOrFalse) throw new Error("Invalid base 64 string. Given - " . $photo['photo']);
+
+                $eq_photo = new EquipmentPhoto();
+                $eq_photo->url = $pathOrFalse;
+                $eq_photo->equipment_id = $equipment->id;
+                $eq_photo->save();
+            }
+            $equipment->save();
+
+            $response = [
+                'status' => 'success'
+            ];
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'timestamp' => now(),
+                'status'    => 'error',
+                'message'   => $e->getMessage(),
+            ], 500);
         }
-        $additional_data = "Номер сим-карты: " . $request['sim'] . ", номер опоры: " . $request['support'] . ", РЭС: " . $request['res'] . ", пример счетчика: " . $request['counter'] . ", другое: " . $request['message'];
-        $installation_adress = "Широта: " . $request['latitude'] . ", долгота: " . $request['longitude'];
-        $equipment->consumer_info = $consumer_info;
-        $equipment->additional_data = $additional_data;
-        $equipment->installation_adress = $installation_adress;
-
-        foreach ($request['photos'] as $photo) {
-            $pathOrFalse = $service->createPhotoFromBase64($photo['photo']);
-            if (!$pathOrFalse) throw new Error("Invalid base 64 string. Given - " . $photo['photo']);
-
-            $eq_photo = new EquipmentPhoto();
-            $eq_photo->url = $pathOrFalse;
-            $eq_photo->equipment_id = $equipment->id;
-            $eq_photo->save();
-        }
-        $equipment->save();
-
-        $response = [
-            'status' => 'success'
-        ];
-        return response()->json($response, 200);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'timestamp' => now(),
-        //         'status'    => 'error',
-        //         'message'   => $e->getMessage(),
-        //     ], 500);
-        // }
     }
 
     /**
