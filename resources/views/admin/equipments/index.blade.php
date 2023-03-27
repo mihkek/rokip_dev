@@ -32,20 +32,6 @@
         flex-direction: column;
         align-items: center;
     }
-
-    .big-table {
-        overflow: auto;
-        position: relative;
-    }
-
-    .big-table table {
-        display: inline-block;
-        vertical-align: top;
-        max-width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-    }
 </style>
 
 @section('content')

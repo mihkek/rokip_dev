@@ -10,6 +10,7 @@ use App\Models\FileEquipment;
 use App\Models\Status;
 use App\Models\Type;
 use App\Models\User;
+use App\Services\FilesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -194,10 +195,11 @@ class EquipmentAdminController extends Controller
         Excel::import(new EquipmentsImport($file), $request->file('csv'));
         return back()->with('Данные файла добавлены');
     }
-    public function photos($equipment_id)
+    public function photos($equipment_id, FilesService $service)
     {
 
         $equipment = Equipment::where('id', $equipment_id)->first();
-        return view('admin.equipments.photos', ['factory_number' => $equipment->factory_number, 'photos' => $equipment->photos]);
+        $full_path = '/storage/' . $service->getImagesDir();
+        return view('admin.equipments.photos', ['factory_number' => $equipment->factory_number, 'photos' => $equipment->photos, 'images_path' => $full_path]);
     }
 }

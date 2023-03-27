@@ -66,13 +66,13 @@
                             <div class="row">
                                 <div class='list-group gallery'>
 
-
                                     @if ($photos->count())
                                         @foreach ($photos as $photo)
-                                            <div onclick="showPhoto('{{ $photo->url }}')"
+                                            <div onclick="showPhoto('{{ $images_path . $photo->url }}')"
                                                 class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
                                                 <a class="thumbnail fancybox" style="cursor: pointer" rel="ligthbox">
-                                                    <img class="img-responsive" alt="" src="{{ $photo->url }}" />
+                                                    <img class="img-responsive" alt=""
+                                                        src="{{ $images_path . $photo->url }}" />
                                                 </a>
                                             </div> <!-- col-6 / end -->
                                         @endforeach

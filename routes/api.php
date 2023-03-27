@@ -19,17 +19,17 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'v1',
 ], function () {
+    Route::apiResource('devices', DeviceApiController::class);
     Route::group([
-        'middleware'=>'auth:sanctum'
+        'middleware' => 'auth:sanctum'
     ], function () {
-        Route::post('logout',[AuthApiController::class, 'logout'])->name('logout');
-        Route::post('reset-password',[AuthApiController::class, 'reset_password'])->name('reset_password');
-        Route::apiResource('devices',DeviceApiController::class);
+        Route::post('logout', [AuthApiController::class, 'logout'])->name('logout');
+        Route::post('reset-password', [AuthApiController::class, 'reset_password'])->name('reset_password');
 
-//        Route::apiResource('orders',OrderApiController::class);
+        //        Route::apiResource('orders',OrderApiController::class);
     });
 
-    Route::post('login',[AuthApiController::class, 'login'])->name('login');
-//    Route::post('register',[AuthApiController::class, 'register'])->name('register');
-//    Route::post('confirm',[AuthApiController::class, 'confirm'])->name('confirm');
+    Route::post('login', [AuthApiController::class, 'login'])->name('login');
+    //    Route::post('register',[AuthApiController::class, 'register'])->name('register');
+    //    Route::post('confirm',[AuthApiController::class, 'confirm'])->name('confirm');
 });

@@ -18,7 +18,7 @@
                                 {{--                                @include('_layouts._tools') --}}
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body big-table">
                             {{--                            @include('admin.users._filters') --}}
 
                             {{--                            @include('admin._include.table.columns_select') --}}
