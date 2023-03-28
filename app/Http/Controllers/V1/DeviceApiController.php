@@ -16,6 +16,7 @@ use App\Services\FilesServices;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class DeviceApiController extends Controller
 {
@@ -48,7 +49,10 @@ class DeviceApiController extends Controller
     public function store(Request $request, FilesService $service)
     {
         try {
+            Log::debug("Request from APP");
+            Log::debug($request->getContent());
             $request = json_decode($request->getContent(), true);
+
             $factory_number = $request['factory_number'];
             $equipment = Equipment::where('factory_number', $factory_number)->first();
             if (!$equipment) throw new Error("Equipment with this factory number does not exists");
