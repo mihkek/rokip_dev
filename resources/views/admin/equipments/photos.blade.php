@@ -37,6 +37,7 @@
 
     .photo_img {
         object-fit: contain;
+        max-height: 70vh
     }
 </style>
 

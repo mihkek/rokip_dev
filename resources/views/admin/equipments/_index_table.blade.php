@@ -43,24 +43,29 @@
     </td>
 
     <td class="align-middle">
-        {{ Str::limit($item->consumer_info, 30, '...') }}
 
         @if (Str::length($item->consumer_info) > 30)
+            {{ $item->short_consumer_info }}
             <div class="text-primary" style="cursor: pointer;" onclick="showModal( '{{ $item->consumer_info }}')">
                 Подробнее...
             </div>
+        @else
+            {{ $item->consumer_info }}
         @endif
 
     </td>
 
     <td class="align-middle">
 
-        {{ Str::limit($item->additional_data, 30, '...') }}
+
 
         @if (Str::length($item->additional_data) > 30)
+            {{ $item->short_additional_data }}
             <div class="text-primary" onclick="showModal( '{{ $item->additional_data }}')" style="cursor: pointer;">
                 Подробнее...
             </div>
+        @else
+            {{ $item->additional_data }}
         @endif
     </td>
 

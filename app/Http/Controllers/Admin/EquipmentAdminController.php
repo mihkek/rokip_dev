@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class EquipmentAdminController extends Controller
 {
@@ -39,32 +40,25 @@ class EquipmentAdminController extends Controller
             'Дополнительная информация',
             'Дата',
         ];
-        if (Auth::user()->hasRole('company')) {
-            $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                ->where('company_id', Auth::id())
-                ->get();
-        } else {
-            if ($request->query('company_id') != null && $request->query('status') != null) {
-                $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                    ->where('company_id', intval($request->query('company_id')))
-                    ->where('status_id', intval($request->query('status')))
-                    ->get();
-            } elseif ($request->query('company_id') != null) {
-                $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                    ->where('company_id', intval($request->query('company_id')))
-                    ->get();
-            } else {
-                if ($request->query('factory_number') != null) {
-                    $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                        ->where('factory_number', intval($request->query('factory_number')))
-                        ->get();
-                } else {
-                    $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-                        //            ->select('id','status_id', '_email', 'phone', 'name', 'created_at')
-                        ->get();
-                }
-            }
-        }
+        $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
+            ->select('*', DB::raw('LEFT(additional_data, 30) as short_additional_data'), DB::raw('LEFT(consumer_info, 30) as short_consumer_info'))
+            ->when(Auth::user()->hasRole('company'), function ($query) {
+                return $query->where('company_id', Auth::id());
+            })
+            ->when($request->query('factory_number') != null, function ($query) use ($request) {
+                return $query->where('factory_number', intval($request->query('factory_number')));
+            })
+            ->when($request->query('status') != null, function ($query) use ($request) {
+                return $query->where('status_id', intval($request->query('status')));
+            })
+            ->when($request->query('company_id') != null && !Auth::user()->hasRole('company'), function ($query) use ($request) {
+                return $query->where('company_id', intval($request->query('company_id')));
+            })
+            ->when($request->query('factory_number') != null, function ($query) use ($request) {
+                return $query->where('factory_number', intval($request->query('factory_number')));
+            })
+            ->get();
+
         $companies = User::role('company')
             ->select('id', 'name')
             ->orderBy('name')

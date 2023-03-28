@@ -53,7 +53,7 @@ class DeviceApiController extends Controller
             Log::debug($request->getContent());
             $request = json_decode($request->getContent(), true);
 
-            if(count($request) == 0){
+            if (count($request) == 0) {
                 throw new Error("Request is void");
             }
             $factory_number = $request['factory_number'];
@@ -96,7 +96,7 @@ class DeviceApiController extends Controller
             ];
             return response()->json($response, 200);
         } catch (\Exception $e) {
-            Log::error("Error in request from APP", $e->getMessage())
+            Log::error("Error in request from APP", $e->getMessage());
             return response()->json([
                 'timestamp' => now(),
                 'status'    => 'error',
