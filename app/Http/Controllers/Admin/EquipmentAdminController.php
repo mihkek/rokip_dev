@@ -41,7 +41,13 @@ class EquipmentAdminController extends Controller
             'Дата',
         ];
         $equipments = Equipment::with('status:id,color,title', 'type:id,title', 'company:id,name')
-            ->select('*', DB::raw('LEFT(additional_data, 30) as short_additional_data'), DB::raw('LEFT(consumer_info, 30) as short_consumer_info'))
+            ->select(
+                '*',
+                DB::raw('LEFT(additional_data, 30) as short_additional_data'),
+                DB::raw('LEFT(consumer_info, 30) as short_consumer_info'),
+                DB::raw('IF(LENGTH(additional_data) > 30, "Подробнее...", "") as hint_additional'),
+                DB::raw('IF(LENGTH(consumer_info) > 30, "Подробнее...", "") as hint_consumer')
+            )
             ->when(Auth::user()->hasRole('company'), function ($query) {
                 return $query->where('company_id', Auth::id());
             })

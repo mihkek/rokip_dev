@@ -44,14 +44,14 @@
 
     <td class="align-middle">
 
-        @if (Str::length($item->consumer_info) > 30)
-            {{ $item->short_consumer_info }}
-            <div class="text-primary" style="cursor: pointer;" onclick="showModal( '{{ $item->consumer_info }}')">
-                Подробнее...
-            </div>
-        @else
+        {{-- @if (Str::length($item->consumer_info) > 30) --}}
+        {{ $item->short_consumer_info }}
+        <div class="text-primary" style="cursor: pointer;" onclick="showModal( '{{ $item->consumer_info }}')">
+            {{ $item->hint_consumer }}
+        </div>
+        {{-- @else
             {{ $item->consumer_info }}
-        @endif
+        @endif --}}
 
     </td>
 
@@ -59,14 +59,14 @@
 
 
 
-        @if (Str::length($item->additional_data) > 30)
-            {{ $item->short_additional_data }}
-            <div class="text-primary" onclick="showModal( '{{ $item->additional_data }}')" style="cursor: pointer;">
-                Подробнее...
-            </div>
-        @else
+        {{-- @if (Str::length($item->additional_data) > 30) --}}
+        {{ $item->short_additional_data }}
+        <div class="text-primary" onclick="showModal( '{{ $item->additional_data }}')" style="cursor: pointer;">
+            {{ $item->hint_additional }}
+        </div>
+        {{-- @else
             {{ $item->additional_data }}
-        @endif
+        @endif --}}
     </td>
 
     <td class="text-center align-middle">
