@@ -39,6 +39,9 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('admin/css/adminlte.css') }}">
 
+{{-- Mihdev custom --}}
+<link rel="stylesheet" href="{{ asset('admin/css/mihdev.css') }}">
+
 {{-- <link rel="stylesheet" href="/admin/css/upload-image.css"> --}}
 <link rel="stylesheet" href="{{ asset('admin/css/style.css?' . now()->format('h:i')) }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"

@@ -1,7 +1,7 @@
 @extends('admin._layout')
 
 @section('title', 'Оборудование')
-
+{{--
 <style>
     .modal_wrapper {
         position: fixed;
@@ -32,7 +32,7 @@
         flex-direction: column;
         align-items: center;
     }
-</style>
+</style> --}}
 
 @section('content')
     <div class="content-wrapper mt-2">
@@ -86,18 +86,16 @@
     </div>
 @endsection
 
-
-<script>
-    function showModal(text) {
-        document.getElementById("modal_window").style.display = 'flex';
-        document.getElementById("modal_text").textContent = text
-    }
-
-    function closeModal() {
-        document.getElementById("modal_window").style.display = 'none';
-    }
-</script>
-
 @push('scripts')
     @include('admin._include.table._properties')
+    <script>
+        function showModal(text) {
+            document.getElementById("modal_window").style.display = 'flex';
+            document.getElementById("modal_text").textContent = text
+        }
+
+        function closeModal() {
+            document.getElementById("modal_window").style.display = 'none';
+        }
+    </script>
 @endpush

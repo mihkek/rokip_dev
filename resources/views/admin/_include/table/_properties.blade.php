@@ -1,23 +1,29 @@
-{{--<style>--}}
-{{--    .DISPLAY_NONE input--}}
-{{--    {--}}
-{{--        display: none;--}}
-{{--    }--}}
-{{--</style>--}}
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js">
-{{--<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">--}}
+{{-- <style> --}}
+{{--    .DISPLAY_NONE input --}}
+{{--    { --}}
+{{--        display: none; --}}
+{{--    } --}}
+{{-- </style> --}}
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"> --}}
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> --}}
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.3.4/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css"> --}}
+
 <link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.3.4/css/searchBuilder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css">
 
 <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
-{{--<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>--}}
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
-{{--<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script>--}}
+<script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+{{-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> --}}
+{{-- <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script> --}}
+{{-- <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script> --}}
 <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.3.4/js/dataTables.searchBuilder.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
 
 
 <script>
@@ -40,10 +46,10 @@
             .draw();
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#example').DataTable({
             dom: 'PQlBfrtip',
-            searchPanes:{
+            searchPanes: {
                 cascadePanes: true,
                 viewTotal: true
             },
@@ -59,7 +65,9 @@
                 [100, 500, 1000, -1],
                 [100, 500, 1000, 'All'],
             ],
-            order: [[0, 'desc']],
+            order: [
+                [0, 'desc']
+            ],
             autoWidth: false,
             // "serverSide": true,
             orderCellsTop: true,
@@ -72,14 +80,14 @@
                 infoEmpty: "Нет доступных записей",
                 infoFiltered: "(отфильтровано из _MAX_ общих записей)",
                 loadingRecords: "Загрузка...",
-                processing:     "Обработка...",
-                search:         "Поиск:",
+                processing: "Обработка...",
+                search: "Поиск:",
                 pageLength: "_MENU_",
                 paginate: {
-                    first:      "<i class='fas fa-angle-double-left'></i>", // "<<",
-                    last:       "<i class='fas fa-angle-double-right'></i>", // ">>",
-                    next:       "<i class='fas fa-angle-right'></i>", // ">",
-                    previous:   "<i class='fas fa-angle-left'></i>", // "<",
+                    first: "<i class='fas fa-angle-double-left'></i>", // "<<",
+                    last: "<i class='fas fa-angle-double-right'></i>", // ">>",
+                    next: "<i class='fas fa-angle-right'></i>", // ">",
+                    previous: "<i class='fas fa-angle-left'></i>", // "<",
                 },
                 buttons: {
                     colvis: 'Отображаемые колонки',
@@ -88,8 +96,8 @@
                     button: 'Сложный поиск',
                     add: '<i class="fas fa-plus"></i> Сложный поиск',
                     condition: 'Компаратор',
-                    clearAll: '<span class="text-danger" data-tooltip="tooltip" title="Сбросить поиск" style="width: 50px"><i class="far fa-times-circle"></i></span>',//'Сбросить',
-                    delete: '<span class="text-danger" data-tooltip="tooltip" title="Удалить" style="width: 20px"><i class="far fa-trash-alt"></i></span>',//'Удалить',
+                    clearAll: '<span class="text-danger" data-tooltip="tooltip" title="Сбросить поиск" style="width: 50px"><i class="far fa-times-circle"></i></span>', //'Сбросить',
+                    delete: '<span class="text-danger" data-tooltip="tooltip" title="Удалить" style="width: 20px"><i class="far fa-trash-alt"></i></span>', //'Удалить',
                     deleteTitle: 'Delete Title',
                     data: 'Колонка',
                     left: '<i class="fas fa-angle-double-left"></i>',
@@ -100,11 +108,11 @@
                     rightTitle: 'Right Title',
                     title: {
                         0: '',
-                        _: 'Сложный поиск'//'Filters (%d)'
+                        _: 'Сложный поиск' //'Filters (%d)'
                     },
                     value: 'Значение',
                     valueJoiner: 'et',
-                    conditions :{
+                    conditions: {
                         date: {
                             before: 'перед',
                             after: 'после',
@@ -154,20 +162,20 @@
             },
         });
 
-        $('input.global_filter').on('keyup click', function () {
+        $('input.global_filter').on('keyup click', function() {
             filterGlobal();
         });
 
-        $('input.column_filter').on('keyup click', function () {
+        $('input.column_filter').on('keyup click', function() {
             filterColumn($(this).parents('th').attr('data-column'));
         });
     });
 
-    $(function () {
+    $(function() {
         $('#example thead tr')
-            // .clone(true)
-            // .addClass('filters')
-            // .appendTo('#example thead');
+        // .clone(true)
+        // .addClass('filters')
+        // .appendTo('#example thead');
 
         // var dataSet = [
         //     [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "5421", "2011/04/25", "$320,800" ],
@@ -179,106 +187,102 @@
 
 
 
-            // var table = $('#example').DataTable({
-                // "ajax": 'datatables',
+        // var table = $('#example').DataTable({
+        // "ajax": 'datatables',
 
 
-                // "aoColumnDefs": [{
-                //         'bSortable': false,
-                //         'aTargets': [1]
-                //     }],
-                // lengthChange: true,
+        // "aoColumnDefs": [{
+        //         'bSortable': false,
+        //         'aTargets': [1]
+        //     }],
+        // lengthChange: true,
 
-                // lengthMenu: [[ 100,500,1000, -1], [ 100,500,1000, "Все"]], // Кількість єлементів на сторінці
-                //fixedHeader: true,
-                {{--dom: @json($dom ?? false) ? @json($dom ?? 'lfrtip') : 'lfrtip',//'lBfrtip'--}}
-                {{--buttons: @json($is_data_export ?? false) ? ["copyHtml5","excelHtml5"] : '',--}}
-
-
-                // "responsive": true,
+        // lengthMenu: [[ 100,500,1000, -1], [ 100,500,1000, "Все"]], // Кількість єлементів на сторінці
+        //fixedHeader: true,
+        {{-- dom: @json($dom ?? false) ? @json($dom ?? 'lfrtip') : 'lfrtip',//'lBfrtip' --}}
+        {{-- buttons: @json($is_data_export ?? false) ? ["copyHtml5","excelHtml5"] : '', --}}
 
 
-                //
-                // orderCellsTop: true,
-                // fixedHeader: true,
-                // initComplete: function () {
-                //     var api = this.api();
-                //
-                //     // For each column
-                //     api
-                //         .columns()
-                //         .eq(0)
-                //         .each(function (colIdx) {
-                //             // Set the header cell to contain the input element
-                //             var cell = $('.filters th').eq(
-                //                 $(api.column(colIdx).header()).index()
-                //             );
-                //             // var title = $(cell).text();
-                //             $(cell).html('<input class="w-100" type="text" placeholder="Поиск" />');
-                //
-                //
-                //             // On every keypress in this input
-                //             $(
-                //                 'input',
-                //                 $('.filters th').eq($(api.column(colIdx).header()).index())
-                //             )
-                //                 .off('keyup change')
-                //                 .on('keyup change', function (e) {
-                //                     e.stopPropagation();
-                //
-                //                     // Get the search value
-                //                     $(this).attr('title', $(this).val());
-                //                     var regexr = '({search})'; //$(this).parents('th').find('select').val();
-                //
-                //                     var cursorPosition = this.selectionStart;
-                //                     // Search the column for that value
-                //                     api
-                //                         .column(colIdx)
-                //                         .search(
-                //                             this.value != ''
-                //                                 ? regexr.replace('{search}', '(((' + this.value + ')))')
-                //                                 : '',
-                //                             this.value != '',
-                //                             this.value == ''
-                //                         )
-                //                         .draw();
-                //
-                //                     $(this)
-                //                         .focus()[0]
-                //                         .setSelectionRange(cursorPosition, cursorPosition);
-                //                 });
-                //         });
-                // }
-                //
+        // "responsive": true,
 
-            });
 
-        // отображение колонок
-        $('a.toggle-vis').on( 'click', function (e) {
-            e.preventDefault();
+        //
+        // orderCellsTop: true,
+        // fixedHeader: true,
+        // initComplete: function () {
+        //     var api = this.api();
+        //
+        //     // For each column
+        //     api
+        //         .columns()
+        //         .eq(0)
+        //         .each(function (colIdx) {
+        //             // Set the header cell to contain the input element
+        //             var cell = $('.filters th').eq(
+        //                 $(api.column(colIdx).header()).index()
+        //             );
+        //             // var title = $(cell).text();
+        //             $(cell).html('<input class="w-100" type="text" placeholder="Поиск" />');
+        //
+        //
+        //             // On every keypress in this input
+        //             $(
+        //                 'input',
+        //                 $('.filters th').eq($(api.column(colIdx).header()).index())
+        //             )
+        //                 .off('keyup change')
+        //                 .on('keyup change', function (e) {
+        //                     e.stopPropagation();
+        //
+        //                     // Get the search value
+        //                     $(this).attr('title', $(this).val());
+        //                     var regexr = '({search})'; //$(this).parents('th').find('select').val();
+        //
+        //                     var cursorPosition = this.selectionStart;
+        //                     // Search the column for that value
+        //                     api
+        //                         .column(colIdx)
+        //                         .search(
+        //                             this.value != ''
+        //                                 ? regexr.replace('{search}', '(((' + this.value + ')))')
+        //                                 : '',
+        //                             this.value != '',
+        //                             this.value == ''
+        //                         )
+        //                         .draw();
+        //
+        //                     $(this)
+        //                         .focus()[0]
+        //                         .setSelectionRange(cursorPosition, cursorPosition);
+        //                 });
+        //         });
+        // }
+        //
 
-            // Get the column API object
-            var column = table.column( $(this).attr('data-column') );
+    });
 
-            // Toggle the visibility
-            column.visible( ! column.visible() );
-        } );
+    // отображение колонок
+    $('a.toggle-vis').on('click', function(e) {
+        e.preventDefault();
 
-        document.addEventListener("click", (e) => {
-            if (e.target.classList.contains('BTN_COLOR'))
-            {
-                const BTN = e.target;
-                if (BTN.classList.contains('btn-default'))
-                {
-                    BTN.classList.remove('btn-default');
-                    BTN.classList.add('btn-outline-primary');
-                }
-                else if (BTN.classList.contains('btn-outline-primary'))
-                {
-                    BTN.classList.remove('btn-outline-primary');
-                    BTN.classList.add('btn-default');
-                }
+        // Get the column API object
+        var column = table.column($(this).attr('data-column'));
+
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains('BTN_COLOR')) {
+            const BTN = e.target;
+            if (BTN.classList.contains('btn-default')) {
+                BTN.classList.remove('btn-default');
+                BTN.classList.add('btn-outline-primary');
+            } else if (BTN.classList.contains('btn-outline-primary')) {
+                BTN.classList.remove('btn-outline-primary');
+                BTN.classList.add('btn-default');
             }
+        }
         // });
         //END отображение колонок
 

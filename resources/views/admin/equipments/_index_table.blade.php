@@ -1,4 +1,5 @@
-<tr style="max-width: 400px; overflow-x:scroll">
+<tr>
+    {{-- style="max-width: 400px; overflow-x:scroll" --}}
     <td class="text-center align-middle" style="width: 50px">
         {{ $item->id }}
     </td>
