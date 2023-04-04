@@ -28,7 +28,7 @@ class FileEquipmentAdminController extends Controller
         ];
 
         $files_query = FileEquipment::with('user', 'company')
-            ->select('id','user_id','title','count','count_double','created_at');
+            ->select('id', 'user_id', 'company_id', 'title', 'count', 'count_double', 'created_at');
 
         $files_query = isset($_GET['company'])
             ? $files_query->where('company_id', $_GET['company'])
@@ -41,7 +41,7 @@ class FileEquipmentAdminController extends Controller
             ->select('id', 'name')
             ->orderBy('name')
             ->get();
-        return view('admin.file_equipments.index', compact('columns','files','companies'));
+        return view('admin.file_equipments.index', compact('columns', 'files', 'companies'));
     }
 
     /**

@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function files()
     {
-        return $this->hasMany(FileEquipment::class, 'company_id', 'id');
+        return $this->hasMany(FileEquipment::class, 'company_id');
     }
 
 

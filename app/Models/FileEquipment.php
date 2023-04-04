@@ -13,11 +13,11 @@ class FileEquipment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault(['name'=>'<span class="text-danger">Нет данных</span>']);
+        return $this->belongsTo(User::class)->withDefault(['name' => '<span class="text-danger">Нет данных</span>']);
     }
 
     public function company()
     {
-        return $this->belongsTo(User::class, 'company_id')->withDefault(['name'=>'<span class="text-danger">Нет данных</span>']);
+        return $this->belongsTo(User::class, 'company_id')->withDefault(['name' => '<span class="text-danger">Нет данных</span>']);
     }
 }
