@@ -42,8 +42,8 @@ class EquipmentsImport implements ToCollection, WithCustomCsvSettings //ToModel
                 } else {
                     $equipment = Equipment::create([
                         'status_id' => Status::EQUIPMENT_SHIPPED,
-                        // 'user_id' => auth()->id(),
-                        'user_id' => $this->fileEquipment->company_id,
+                        'user_id' => auth()->id(),
+                        // 'user_id' => $this->fileEquipment->company_id,
                         'company_id' => $this->fileEquipment->company_id,
                         'shipment_number' => $row[1], // № Отгрузки
                         'shipping_at' => Carbon::parse($row[2])->format('d.m.Y'), // Дата отгрузки
