@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
-class EquipmentsImport implements ToCollection, WithCustomCsvSettings//ToModel
+class EquipmentsImport implements ToCollection, WithCustomCsvSettings //ToModel
 {
     public FileEquipment $fileEquipment;
 
@@ -31,21 +31,20 @@ class EquipmentsImport implements ToCollection, WithCustomCsvSettings//ToModel
         $count_double = 0;
         $successes = null;
         $errors = null;
-        foreach ($rows as $row)
-        {
-            if($i >= 2)
-            {
+        foreach ($rows as $row) {
+            if ($i >= 2) {
                 $equipment = Equipment::where('factory_number', $row[12])->first();
-                if($equipment){
+                if ($equipment) {
                     $errors = now()->format('[d.m.Y H:i]')
                         . '<br>Ошибка публикации: найден дубль (<a href="' . route('admin.equipments.edit', $equipment) . '" target="_blank">' . route('admin.equipments.edit', $equipment) . '</a>)<br><br>'
                         . ($errors ?? null);
                     $count_double++;
-                }
-                else {
+                } else {
                     $equipment = Equipment::create([
                         'status_id' => Status::EQUIPMENT_SHIPPED,
-                        'user_id' => auth()->id(),
+                        // 'user_id' => auth()->id(),
+                        'user_id' => $this->fileEquipment->company_id,
+                        'company_id' => $this->fileEquipment->company_id,
                         'shipment_number' => $row[1], // № Отгрузки
                         'shipping_at' => Carbon::parse($row[2])->format('d.m.Y'), // Дата отгрузки
                         //                '' => $row[3], // Грузополучатель

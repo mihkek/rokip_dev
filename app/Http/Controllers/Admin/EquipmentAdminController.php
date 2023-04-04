@@ -187,6 +187,7 @@ class EquipmentAdminController extends Controller
 
     public function import(Request $request)
     {
+        // dd($request);
         $file          = new FileEquipment();
         $file->user_id = Auth::id();
         if (Auth::user()->hasRole('company')) {
