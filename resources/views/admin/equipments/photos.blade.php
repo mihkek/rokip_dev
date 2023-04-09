@@ -39,6 +39,17 @@
         object-fit: contain;
         max-height: 70vh
     }
+
+    .eq-gallery {
+        flex-direction: row !important;
+        gap: 5px
+    }
+
+    .gallery-item {
+        object-fit: contain;
+        width: 150px;
+        height: 150px;
+    }
 </style>
 
 @section('content')
@@ -65,16 +76,16 @@
                         <div class="card-body">
 
                             <div class="row">
-                                <div class='list-group gallery'>
+                                <div class='list-group gallery eq-gallery'>
 
                                     @if ($photos->count())
                                         @foreach ($photos as $photo)
-                                            <div onclick="showPhoto('{{ $images_path . $photo->url }}')"
-                                                class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
-                                                <a class="thumbnail fancybox" style="cursor: pointer" rel="ligthbox">
-                                                    <img class="img-responsive" alt=""
-                                                        src="{{ $images_path . $photo->url }}" />
-                                                </a>
+                                            <div onclick="showPhoto('{{ $images_path . $photo->url }}')">
+                                                <img class="gallery-item img-responsive" alt=""
+                                                    src="{{ $images_path . $photo->url }}" />
+                                                {{-- <a class="thumbnail fancybox" style="cursor: pointer" rel="ligthbox">
+
+                                                </a> --}}
                                             </div> <!-- col-6 / end -->
                                         @endforeach
                                     @else
