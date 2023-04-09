@@ -31,7 +31,7 @@
     </td>
     <td class="text-center align-middle">
         <a href="{{ route('admin.equipments.index', ['company_id' => $item->id, 'status' => 9]) }}">
-            {{ $item->installed }}
+            {{ $item->breakdowns }}
         </a>
     </td>
     <td class="text-center align-middle">
