@@ -10,6 +10,7 @@ use App\Models\FileEquipment;
 use App\Models\Status;
 use App\Models\Type;
 use App\Models\User;
+use App\Services\CompaniesService;
 use App\Services\FilesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -185,7 +186,7 @@ class EquipmentAdminController extends Controller
         //
     }
 
-    public function import(Request $request)
+    public function import(Request $request, CompaniesService $service)
     {
         // dd($request);
         $file          = new FileEquipment();
@@ -199,6 +200,10 @@ class EquipmentAdminController extends Controller
         //        $file->save();
 
         Excel::import(new EquipmentsImport($file), $request->file('csv'));
+
+        if ($file->company_id != null) {
+            $service->calcAndFealCompanyFields($file->company_id);
+        }
         return back()->with('Данные файла добавлены');
     }
     public function photos($equipment_id, FilesService $service)
