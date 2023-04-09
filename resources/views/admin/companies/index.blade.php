@@ -24,7 +24,7 @@
                             {{--                            @include('admin.users._filters') --}}
 
                             {{--                            @include('admin._include.table.columns_select') --}}
-                            <table id="example" class="table table-bordered table-striped">
+                            <table id="example" class="table table-bordered table-striped big-table">
                                 @include('admin._include.table.thead')
                                 <tbody>
                                     @foreach ($companies as $item)
