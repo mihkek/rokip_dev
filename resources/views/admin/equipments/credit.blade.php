@@ -91,13 +91,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md mb-3">
+                            {{-- <div class="col-md mb-3">
                                 @include('admin._include.form.input', [
                                     'data' => 'title',
                                     'label' => 'Название',
                                     'required' => true,
                                 ])
-                            </div>
+                            </div> --}}
                             <div class="col-md mb-3">
                                 @include('admin._include.form.input', [
                                     'data' => 'modification',
