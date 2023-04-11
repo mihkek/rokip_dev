@@ -75,7 +75,7 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="row">
+                            <div class="row" style="overflow-x: auto">
                                 <div class='list-group gallery eq-gallery'>
 
                                     @if ($photos->count())
