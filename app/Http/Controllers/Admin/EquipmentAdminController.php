@@ -199,6 +199,7 @@ class EquipmentAdminController extends Controller
         $file->title   = $request->file('csv')->getClientOriginalName();
         //        $file->save();
 
+
         Excel::import(new EquipmentsImport($file), $request->file('csv'));
 
         if ($file->company_id != null) {

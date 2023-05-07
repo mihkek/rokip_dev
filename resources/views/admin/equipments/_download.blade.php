@@ -11,17 +11,20 @@
                 Файл импорта
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.equipments.import') }}" class="was-validated" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.equipments.import') }}" class="was-validated" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <label for="company_id" class="form-label">
                         Компания
                         @include('admin._include.form._field_is_required')
                     </label>
-                    <select class="select2bs4 select2-hidden-accessible custom-select-sm" name="company_id" id="company_id" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                    <select class="select2bs4 select2-hidden-accessible custom-select-sm" name="company_id"
+                        id="company_id" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
                         <option value="" selected disabled>Сделайте выбор</option>
-                        @foreach($companies as $company)
-                            <option value="{{ $company->id }}" @if(isset($item) && $item->company_id == $company->id) selected @endif>{{ $company->name }}</option>
+                        @foreach ($companies as $company)
+                            <option value="{{ $company->id }}" @if (isset($item) && $item->company_id == $company->id) selected @endif>
+                                {{ $company->name }}</option>
                         @endforeach
                     </select>
                     <br>
@@ -29,13 +32,15 @@
                         Поддерживаются только файлы с расширением .csv
                     </p>
                     <div class="custom-file">
-                        <input type="file" name="csv" class="custom-file-input" id="csv" accept=".csv" required>
+                        <input type="file" name="csv" class="custom-file-input" id="csv" accept=".csv"
+                            required>
                         <label class="custom-file-label" for="xml" style="overflow: hidden;">Выберите файл</label>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block" onclick="block_modal()">Загрузить</button>
+                            <button type="submit" class="btn btn-primary btn-block"
+                                onclick="block_modal()">Загрузить</button>
                         </div>
                     </div>
                 </form>
@@ -46,8 +51,7 @@
 
 @push('scripts')
     <script>
-        function block_modal()
-        {
+        function block_modal() {
             $('.overlay').removeClass('d-none');
         }
     </script>

@@ -32,7 +32,7 @@ class EquipmentsImport implements ToCollection, WithCustomCsvSettings //ToModel
         $successes = null;
         $errors = null;
         foreach ($rows as $row) {
-            if ($i >= 2) {
+            if ($i >= 1) {
                 $equipment = Equipment::where('factory_number', $row[12])->first();
                 if ($equipment) {
                     $errors = now()->format('[d.m.Y H:i]')
@@ -40,6 +40,11 @@ class EquipmentsImport implements ToCollection, WithCustomCsvSettings //ToModel
                         . ($errors ?? null);
                     $count_double++;
                 } else {
+
+                    $napr = $row[8];
+                    if (strrpos($row[8], "3Г—") == 0) {
+                        $napr = str_replace('3Г—', '3*', $row[8]);
+                    }
                     $equipment = Equipment::create([
                         'status_id' => Status::EQUIPMENT_SHIPPED,
                         'user_id' => auth()->id(),
@@ -52,7 +57,7 @@ class EquipmentsImport implements ToCollection, WithCustomCsvSettings //ToModel
                         //                '' => $row[5], // Тип ПУ
                         'modification' => $row[6], // Модификация
                         'current' => $row[7], // Сила тока, Imax, А
-                        'voltage' => $row[8], // Номинальное напряжение, В
+                        'voltage' => $napr, // Номинальное напряжение, В
                         //                '' => $row[9] . $row[10] . $row[11], // Класс точности
                         'factory_number' => $row[12], // Зав. №
                     ]);
