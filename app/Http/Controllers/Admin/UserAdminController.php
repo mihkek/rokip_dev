@@ -33,14 +33,19 @@ class UserAdminController extends Controller
             'ФИО',
             'Емейл',
             'Телефон',
+            'Отгружено приборов',
+            'Установлено',
+            'Брак',
+            'Остаток',
+            'Файлы отгрузки',
             'Дата'
         ];
         $roles = Role::select('id', 'name')
             ->where('name', '!=', 'master')
             ->get();
-        $users = User::with('status:id,color,title')
-            ->select('id', 'status_id', 'email', 'phone', 'name', 'created_at')
+        $users = User::with('status:id,color,title') // ->select('id', 'status_id', 'email', 'phone', 'name', 'created_at')
             ->role($roles)
+            ->withCount('files')
             ->paginate();
         return view('admin.users.index', compact('columns', 'users', 'roles'));
     }
