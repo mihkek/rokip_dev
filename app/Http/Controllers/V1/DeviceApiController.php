@@ -75,7 +75,15 @@ class DeviceApiController extends Controller
                 }
             }
             $additional_data = "Номер сим-карты: " . $request['sim'] . ", номер опоры: " . $request['support'] . ", РЭС: " . $request['res'] . ", пример счетчика: " . $request['counter'] . ", другое: " . $request['message'];
-            $installation_adress = "Широта: " . $request['latitude'] . ", долгота: " . $request['longitude'];
+            $equipment->lat = $request['latitude'];
+            $equipment->lon = $request['longitude'];
+
+            if (!array_key_exists('adress', $request)) {
+                $installation_adress = "";
+            } else {
+                $installation_adress = $request['adress'];
+            }
+            // $installation_adress = "Широта: " . $request['latitude'] . ", долгота: " . $request['longitude'];
             $equipment->consumer_info = $consumer_info;
             $equipment->additional_data = $additional_data;
             $equipment->installation_adress = $installation_adress;
