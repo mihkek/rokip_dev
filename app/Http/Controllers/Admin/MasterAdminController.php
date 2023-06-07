@@ -102,9 +102,22 @@ class MasterAdminController extends Controller
      * @param  \App\Models\User  $user
      * @return Response
      */
-    public function edit(User $user)
+    public function edit(Request $request, User $master)
     {
-        //
+        $item = $master;
+        // dd($item);
+        $roles = Role::select('id', 'name')
+            ->get();
+        $companies = User::role('company')
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
+        $company_id = null;
+        if ($request->query('company_id') != null) {
+            $company_id = intval($request->query('company_id'));
+        }
+
+        return view('admin.masters.credit', compact('roles', 'companies', 'company_id', 'item'));
     }
 
     /**
@@ -116,7 +129,17 @@ class MasterAdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $item = User::where('id', $request->id)->first();
+        $item->fill($request->all());
+        $item->status_id = 1;
+        if (Auth::user()->hasRole('company')) {
+            $item->company_id = Auth::id();
+        } else {
+            $item->company_id = $request->company_id;
+        }
+        $item->save();
+        $item->syncRoles(Role::where('name', 'master')->pluck('id'));
+        return redirect()->route('admin.masters.index');
     }
 
     /**

@@ -5,9 +5,9 @@
     <td class="text-center align-middle" style="width: 150px">
         {!! $item->code_status() !!}
 
-{{--        <a href="{{ route('admin.masters.edit',$item) }}" class="text-primary" data-tooltip="tooltip" title="Редактировать">--}}
-{{--            <i class="far fa-edit"></i>--}}
-{{--        </a>--}}
+        <a href="{{ route('admin.masters.edit', $item) }}" class="text-primary" data-tooltip="tooltip" title="Редактировать">
+            <i class="far fa-edit"></i>
+        </a>
     </td>
     <td class="align-middle">
         {{ Arr::join($item->getRoleNames()->toArray(), ', ') }}

@@ -58,6 +58,15 @@
                                     'required' => true,
                                 ])
                             </div>
+                            @if (isset($item))
+                                <div style="opacity: 0; width: 0">
+                                    @include('admin._include.form.input', [
+                                        'data' => 'id',
+                                        'required' => true,
+                                    ])
+                                </div>
+                            @endif
+
                             @if (!Auth::user()->hasRole('company'))
                                 <div class="col-md">
                                     <label for="company_id" class="form-label">
