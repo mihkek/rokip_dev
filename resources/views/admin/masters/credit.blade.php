@@ -51,13 +51,15 @@
                                     'required' => true,
                                 ])
                             </div>
-                            <div class="col-md mb-3">
-                                @include('admin._include.form.input', [
-                                    'data' => 'password',
-                                    'label' => 'Пароль',
-                                    'required' => true,
-                                ])
-                            </div>
+                            @if (!isset($item))
+                                <div class="col-md mb-3">
+                                    @include('admin._include.form.input', [
+                                        'data' => 'password',
+                                        'label' => 'Пароль',
+                                        'required' => true,
+                                    ])
+                                </div>
+                            @endif
                             @if (isset($item))
                                 <div style="opacity: 0; width: 0">
                                     @include('admin._include.form.input', [
