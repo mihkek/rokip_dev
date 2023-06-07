@@ -118,11 +118,24 @@
                                     'label' => 'Номинальное напряжение, В',
                                 ])
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md mb-3">
                                 @include('admin._include.form.input', [
                                     'data' => 'installation_adress',
-                                    'type' => 'number',
                                     'label' => 'Адрес установки',
+                                ])
+                            </div>
+                            <div class="col-md mb-3">
+                                @include('admin._include.form.input', [
+                                    'data' => 'lat',
+                                    'label' => 'Широта',
+                                ])
+                            </div>
+                            <div class="col-md mb-3">
+                                @include('admin._include.form.input', [
+                                    'data' => 'lon',
+                                    'label' => 'Долгота',
                                 ])
                             </div>
                         </div>

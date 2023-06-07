@@ -37,6 +37,8 @@ class EquipmentAdminController extends Controller
             'Номинальное напряжение',
             'Компания',
             'Адрес установки',
+            'Широта',
+            'Долгота',
             'Информация о потребителе',
             'Дополнительная информация',
             'Дата',
@@ -110,6 +112,8 @@ class EquipmentAdminController extends Controller
         $item->consumer_info = $request->consumer_info;
         $item->additional_data = $request->additional_data;
         $item->installation_adress = $request->installation_adress;
+        $item->lat = $request->lat;
+        $item->lon = $request->lon;
         $item->user_id = Auth::id();
         if (Auth::user()->hasRole('company')) {
             $item->company_id = Auth::id();
@@ -171,6 +175,8 @@ class EquipmentAdminController extends Controller
         $item->consumer_info = $request->consumer_info;
         $item->additional_data = $request->additional_data;
         $item->installation_adress = $request->installation_adress;
+        $item->lat = $request->lat;
+        $item->lon = $request->lon;
         $item->save();
         return back()->with('success', 'Информация успешно сохранена');
     }

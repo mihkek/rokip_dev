@@ -42,6 +42,14 @@
         {{ $item->installation_adress }}
 
     </td>
+    <td class="align-middle">
+        {{ $item->lat }}
+
+    </td>
+    <td class="align-middle">
+        {{ $item->lon }}
+
+    </td>
 
     <td class="align-middle">
 
