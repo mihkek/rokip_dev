@@ -37,8 +37,41 @@
             </div>
         </section>
     </div>
+    <div id="modal_window" class="modal_wrapper">
+        <div class="card modal_content">
+            <h3 class="text-center">Подтверждение</h3>
+            <form action="/adminex/masters/remove" method="POST"
+                class="card-body col justify-between items-center modal_card">
+                @csrf
+                <h5 class="text-center">
+                    Вы уверены, что хотите удалить мастера?
+
+                    <input id="id_input" name="id" type="hidden" value="">
+                </h5>
+                <div class="row" style="gap: 15px">
+                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        Удалить
+                    </button>
+                    <button id="#closeModal" onclick="closeModal()" type="button" class="btn btn-primary"
+                        data-toggle="modal" data-target="#exampleModal">
+                        Отмена
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     @include('admin._include.table._properties')
+    <script>
+        function modalDeleteConfirm(id) {
+            document.getElementById("modal_window").style.display = 'flex';
+            document.getElementById("id_input").value = id
+        }
+
+        function closeModal() {
+            document.getElementById("modal_window").style.display = 'none';
+        }
+    </script>
 @endpush

@@ -2,11 +2,16 @@
     <td class="text-center align-middle" style="width: 50px">
         {{ $item->id }}
     </td>
-    <td class="text-center align-middle" style="width: 150px">
+    <td class="text-center align-middle" style="width: 150px; cursor: pointer">
         {!! $item->code_status() !!}
 
-        <a href="{{ route('admin.masters.edit', $item) }}" class="text-primary" data-tooltip="tooltip" title="Редактировать">
+        <a href="{{ route('admin.masters.edit', $item) }}" class="text-primary" data-tooltip="tooltip"
+            title="Редактировать">
             <i class="far fa-edit"></i>
+        </a>
+        <a onclick="modalDeleteConfirm('{{ $item->id }}')" class="text-danger" data-tooltip="tooltip"
+            title="Удалить">
+            <i class="fa fa-trash"></i>
         </a>
     </td>
     <td class="align-middle">

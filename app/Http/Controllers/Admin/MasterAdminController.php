@@ -152,4 +152,10 @@ class MasterAdminController extends Controller
     {
         //
     }
+    public function remove(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $user->delete();
+        return redirect()->route('admin.masters.index')->with('success', 'Мастер успешно удален');
+    }
 }

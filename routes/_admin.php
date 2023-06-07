@@ -33,6 +33,8 @@ Route::group([
     // Мастера
     Route::resource('masters', MasterAdminController::class);
 
+
+    Route::post('masters/remove', [MasterAdminController::class, 'remove'])->name('masters.remove');
     // Пользователи
     Route::resource('users', UserAdminController::class);
 
